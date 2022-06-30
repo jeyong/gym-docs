@@ -1,52 +1,52 @@
 # Gym-docs
 
-This repo contains the [NEW website](http://www.gymlibrary.ml) for [Gym](https://github.com/openai/gym). This site is currently in Beta and we are in the process of adding/editing information. 
+이 저장소는 [Gym](https://github.com/openai/gym)에 대한 [새로운 웹사이트](http://www.gymlibrary.ml)에 대한 내용을 포함하고 있다. 이 사이트는 현재 베타 버전이고 추가/수정을 진행 중이다.
 
 
-The documentation uses Sphinx. However, the documentation is written in regular md, NOT rst.
+이 문서는 Sphinx를 사용하지만 문서는 markdown으로 작성되었다.
 
 If you are modifying a non-environment page or an atari environment page, please PR this repo. Otherwise, follow the steps below:
 
-## Instructions for modifying environment pages
+## environment 페이지를 수정하기 위한 절차
 
-### Editing an environment page
+### environment 페이지 수정하기
 
-If you are editing an Atari environment, directly edit the md file in this repository. 
+Atari environment를 수정하고자 한다면 이 repo에서 직접 md 파일을 수정한다.
 
-Otherwise, fork Gym and edit the docstring in the environment's Python file. Then, pip install your Gym fork and run `docs/scripts/gen_mds.py` in this repo. This will automatically generate a md documentation file for the environment.
+그렇지 않은 경우 Gym을 fork하고 environment의 Python 파일에 있는 docstring을 수정한다. 다음으로 여러분의 Gym fork을 pip install 하고 이 repo 내에 있는 `docs/scripts/gen_mds.py`를 실행한다. 이것은 자동으로 해당 environment에 대한 md 문서 파일을 생성한다.
 
 ### Adding a new environment
 
 #### Atari env
 
-For Atari envs, add a md file into `pages/environments/atari` then complete the **other steps**.
+Atari envs에 대해서 `pages/environments/atari`에 md 파일을 추가하고 난 후에 **다른 단계들**을 진행한다.
 
 #### Non-Atari env
 
-Ensure the environment is in Gym (or your fork). Ensure that the environment's Python file has a properly formatted markdown docstring. Pip install Gym (or your fork) then run `docs/scripts/gen_mds.py`. This will automatically generate an md page for the environment. Then complete the [other steps](#other-steps).
+Gym에 있는 해당 environment를 확인한다. 해당 environment의 Python 파일은 markdown 형식인지 확인한다. pip install gym을 수행하고 `docs/scripts/gen_mds.py`를 실행한다. 이렇게 하면 자동으로 해당 environment에 대한 md 페이지를 생성한다. 다음으로 [다른 단계들](#other-steps)를 완료한다.
 
-#### Other steps
+#### 다른 단계들
 
 - Add the corresponding gif into the `docs/source/_static/videos/{ENV_TYPE}` folder, where `ENV_TYPE` is the category of your new environment (e.g. mujoco). Follow snake_case naming convention. Alternatively, run `docs/scripts/gen_gifs.py`.
 - Edit `docs/source/environments/{ENV_TYPE}/index.md`, and add the name of the file corresponding to your new environment to the `toctree`.
 
-## Build the Documentation
+## 문서 빌드하기
 
-Install the required packages and Gym (or your fork):
+Gym과 필요한 package들을 설치:
 
 ```
 pip install -r requirements.txt
 pip install gym
 ```
 
-To build the documentation once:
+문서를 빌드:
 
 ```
 cd docs
 make dirhtml
 ```
 
-To rebuild the documentation automatically everytime a change is made:
+문서에 변경이 생길때마다 자동으로 빌드하게 만들기:
 
 ```
 cd docs

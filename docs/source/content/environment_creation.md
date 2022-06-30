@@ -2,10 +2,10 @@
 layout: "contents"
 title: Environment Creation
 ---
-# Environment Creation
+# Environment 생성
 
-This documentation overviews creating new environments and relevant useful wrappers, utilities and tests included in Gym designed for the creation of new environments.
-You can clone gym-examples to play with the code that are presented here. We recommend that you use a virtual environment:
+이 문서는 Gym내부에서 새로운 environment를 생성하기 위해서 새 환경 생성과 관련된 유용한 wrappers, 유틸리티, 테스트들에 대해서 알아본다.
+여기에 있는 코드로 실행하기 위해서 gym-examples를 clone할 수 있다. 가상환경을 사용하는 것을 추천한다.:
 
 ```console
 git clone https://github.com/Farama-Foundation/gym-examples
@@ -17,9 +17,9 @@ pip install -e .
 
 ## Subclassing gym.Env
 
-Before learning how to create your own environment you should check out [the documentation of Gym's API](https://www.gymlibrary.ml/content/api/).
+나만의 environment를 생성하는 방법을 배우기 전에 [Gym's API 문서](https://www.gymlibrary.ml/content/api/)를 먼저 확인해야 한다.
 
-We will be concerned with a subset of gym-examples that looks like this:
+아래와 같은 gym-examples의 하부를 살펴보자.:
 
 ```sh
 gym-examples/
@@ -35,31 +35,29 @@ gym-examples/
       relative_position.py
  ```
 
-To illustrate the process of subclassing `gym.Env`, we will implement a very simplistic game, called `GridWorldEnv`.
-We will write the code for our custom environment in `gym-examples/gym_examples/envs/grid_world.py`.
-The environment consists of a 2-dimensional square grid of fixed size (specified via the `size` parameter during construction).
-The agent can move vertically or horizontally between grid cells in each timestep. The goal of the agent is to navigate to a 
-target on the grid that has been placed randomly at the beginning of the episode.
+`gym.Env`의 하부를 보여주기 위해서 `GridWorldEnv`라는 아주 간단한 game을 구현해 볼 것이다.
+`gym-examples/gym_examples/envs/grid_world.py` 내에 있는 커스텀 environment에 대한 코드를 작성해 보자.
+environment는 고정 크기의 2차원 사각 그리드로 구성되어 있다.(생성자에서 `size`를 지정)
+agent는 각 timestep에서 그리드 셀 사이에서 수평이나 수직으로 이동 가능하다. agent의 목표는 episode 시작 시점에 그리드 상에 임의의 위치에 놓여진 물체를 목표지점으로 이동시키는 것이다.
 
-- Observations provide the location of the target and agent. 
-- There are 4 actions in our environment, corresponding to the movements "right", "up", "left", and "down".  
-- A done signal is issued as soon as the agent has navigated to the grid cell where the target is located.
-- Rewards are binary and sparse, meaning that the immediate reward is always zero, unless the agent has reached the target, then it is 1.
+- observations은 target과 agent의 위치를 제공한다.
+- 우리 environment 내에 4가지 action이 있다. "right", "up", "left", "down"
+- done signal은 target이 위치한 그리드 셀로 agent가 이동하게 되면 발생
+- rewards는 binary(0 or 1)와 sparse로 agent가 target에 도달하지 못하면 reward는 항상 0이고 도달하면 1이다.
 
-An episode in this environment (with `size=5`) might look like this:
+이 environment에서 episode(`size=5`)는 아래와 같다:
 
 <img src="https://user-images.githubusercontent.com/15806078/160155148-253a05ae-25c1-4fcf-9a72-f72362a64225.gif" width="35%">
 
-where the blue dot is the agent and the red square represents the target.
+파란점은 agent이고 빨간 사각형은 target이다.
 
 
-Let us look at the source code of `GridWorldEnv` piece by piece: 
+`GridWorldEnv` 코드를 한줄씩 살펴보자.: 
 
-### Declaration and Initialization
-Our custom environment will inherit from the abstract class `gym.Env`. You shouldn't forget to add the `metadata` attribute to you class. 
-There, you should specify the render-modes that are supported by your environment (e.g. `"human"`, `"rgb_array"`, `"ansi"`)
-and the framerate at which your environment should be rendered.
-In `GridWorldEnv`, we will support the modes "rgb_array" and "human" and render at 4 FPS.
+### 선언과 초기화(Declaration and Initialization)
+커스텀 environment는 추상 class `gym.Env`으로부터 상속받는다. `metadata` attribute를 여러분의 class에 추가하는 것을 잊지말자.
+여러분의 environment에서 지원하는 render-modes를 지정해야한다.(e.g. `"human"`, `"rgb_array"`, `"ansi"`) 그리고 framerate는 environment가 랜더링하는 속도이다.
+`GridWorldEnv` 에서는 "rgb_array"와 "human" 모드와 4 FPS로 랜더링된다.
 
 The `__init__` method of our environment will accept the integer `size`, that determines the size of the square grid.
 We will set up some variables for rendering and define `self.observation_space` and `self.action_space`.

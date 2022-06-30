@@ -5,16 +5,16 @@ title: API
 
 # API
 
-## Initializing Environments
-Initializing environments is very easy in Gym and can be done via: 
+## Environments 초기화
+Gym에서 Environments 초기화는 다음과 같이 쉽게 가능:
 
 ```python
 import gym
 env = gym.make('CartPole-v0')
 ```
 
-## Interacting with the Environment
-Gym implements the classic "agent-environment loop":
+## Environments와 상호 작용
+Gym은 전형적인 "agent-environment loop" 를 구현 :
 
 ```{image} /_static/diagrams/AE_loop.png
 :width: 50%
@@ -28,21 +28,15 @@ Gym implements the classic "agent-environment loop":
 :class: only-dark
 ```
 
-The agent performs some actions in the environment (usually by passing some control inputs to the environment, e.g. torque inputs of motors) and observes
-how the environment's state changes. One such action-observation exchange is referred to as a *timestep*. 
+agent는 해당 environment 내에서 어떤 action들을 수행한다.(보통은 control 입력을 environment로 전달하는 방식으로 예로는 모터의 torque 입력) 그리고 environment의 state가 어떻게 변경되는지를 관찰한다. 이러한 action-observation 교환을 *timestep*이라고 부른다.
 
-The goal in RL is to manipulate the environment in some specific way. For instance, we want the agent to navigate a robot
-to a specific point in space. If it succeeds in doing this (or makes some progress towards that goal), it will receive a positive reward
-alongside the observation for this timestep. The reward may also be negative or 0, if the agent did not yet succeed (or did not make any progress). 
-The agent will then be trained to maximize the reward it accumulates over many timesteps.
+RL에서 목표는 특정 방식으로 environment를 다루는 것이다. 예제로 agent가 robot을 공간에서 특정 지점으로 이동시키기를 원한다. 만약 이것이 성공하면 각 timestemp마다 observation에 따라서 positive reward를 받게 된다. agent가 성공하지 못했다면 reward는 negative이거나 0일 수도 있다. agent는 많은 timesteps 동안 누적 reward를 극대화 시키도록 train시킨다.
 
-After some timesteps, the environment may enter a terminal state. For instance, the robot may have crashed! In that case,
-we want to reset the environment to a new initial state. The environment issues a done signal to the agent if it enters such a terminal state.
-Not all done signals must be triggered by a "catastrophic failure": Sometimes we also want to issue a done signal after
-a fixed number of timesteps, or if the agent has succeeded in completing some task in the environment.
+일부 timesteps 이후에 environment는 terminal 상태로 들어갈 수도 잇다. 예제로 robot은 파괴될 수도 있다. 이 경우 environment를 새로운 초기 상태로 리셋되기를 원한다. 이러한 terminal 상태로 들어가게 되면 environment은 done signal을 agent로 제공한다. "catastrophic failure"가 모든 done signal들을 발생시키지는 않는다.:
+가끔 고정된 timesteps 이후에 done signal이 발생되기를 원할때도 있다. 혹은 agent가 environment내에서 어떤 task를 완료시키는 것에 성공한 경우일 수도 있다.
 
-Let's see what the agent-environment loop looks like in Gym.
-This example will run an instance of `LunarLander-v2` environment for 1000 timesteps, rendering the environment at each step. You should see a window pop up rendering the environment
+Gym 내에서 agent-environment loop은 어떤 형태인지 살펴보자.
+이 예제는 `LunarLander-v2` environment의 인스턴스를 1000 timesteps 실행시키고 각 step에서 environment를 랜더링한다. environment를 랜더링하는 것을 윈도우가 뜨게 된다.
 
 ```python
 import gym
@@ -61,19 +55,16 @@ for _ in range(1000):
 env.close()
 ```
 
-The output should look something like this
+출력은 아래와 같은 형태로 나타난다.
 
 ```{figure} https://user-images.githubusercontent.com/15806078/153222406-af5ce6f0-4696-4a24-a683-46ad4939170c.gif
 :width: 50%
 :align: center
 ```
 
-Every environment specifies the format of valid actions by providing an `env.action_space` attribute. Similarly,
-the format of valid observations is specified by `env.observation_space`.
-In the example above we sampled random actions via `env.action_space.sample()`. Note that we need to seed the action space separately from the 
-environment to ensure reproducible samples.
+모든 environment는 `env.action_space` 속성을 제공하기 위해서 유효한 action 포맷을 지정한다. 유사하게 유효한 observation 포맷은 `env.observation_space`로 지정한다. 위에 예제에서 임의의 actions을 `env.action_space.sample()`를 통해서 샘플링했다. 중요한 점은 해당 environment에서 재생성이 가능한 샘플을 위해서 별도의 action space를 seed로 줄수 있어야 한다.
 
-## Standard methods
+## 표준 방법
 
 ### Stepping
 ```{eval-rst}
@@ -91,7 +82,7 @@ environment to ensure reproducible samples.
 .. autofunction:: gym.Env.render
 ```
 
-## Additional Environment API
+## 추가적인 Environment API
 
 ### Attributes
 
