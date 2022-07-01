@@ -6,7 +6,7 @@
 
 ## General Functions
 
-Each space implements the following functions:
+각 space 구현은 다음 기능을 구현한다:
 
 ```{eval-rst}
 .. autofunction:: gym.spaces.Space.sample

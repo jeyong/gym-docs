@@ -89,7 +89,7 @@ env.close()
 ```{eval-rst}
 .. autoattribute:: gym.Env.action_space
 
-    This attribute gives the format of valid actions. It is of datatype `Space` provided by Gym. For example, if the action space is of type `Discrete` and gives the value `Discrete(2)`, this means there are two valid discrete actions: 0 & 1.
+    이 attirubte는 유효한 action의 포맷을 준다. 이는 Gym이 제공하는 datatype `Space`이다. 예제로 만약 action space가 type `Discrete`이고 value `Discrete(2)`을 주면 2개의 유효한 discrete actions이 있다. : 0 & 1.
 
     .. code::
     
@@ -102,7 +102,7 @@ env.close()
 ```{eval-rst}
 .. autoattribute:: gym.Env.observation_space
 
-    This attribute gives the format of valid observations. It is of datatype :class:`Space` provided by Gym. For example, if the observation space is of type :class:`Box` and the shape of the object is ``(4,)``, this denotes a valid observation will be an array of 4 numbers. We can check the box bounds as well with attributes.
+    이 attribute는 유효한 observations의 포맷을 준다. Gym이 제공하는 datatype :class:`Space`이다. 예제로 observation space가 type :class:`Box`이고 object의 shape은 ``(4,)`이면 이는 유효한 observation은 4 numbers의 array가 된다. attributes로 box bounds를 검사할 수 있다.
 
     .. code::
 
@@ -115,7 +115,7 @@ env.close()
 ```{eval-rst}
 .. autoattribute:: gym.Env.reward_range
 
-    This attribute is a tuple corresponding to min and max possible rewards. Default range is set to ``(-inf,+inf)``. You can set it if you want a narrower range.
+    이 attribute는 min과 max reward에 대한 tuple이다. 기본 범위는 ``(-inf,+inf)``로 설정된다. 좀더 좁은 범위를 원한다면 그렇게 설정할 수 있다.
 ``` 
 
 ### Methods
@@ -129,21 +129,16 @@ env.close()
 ```  
 
 ## Checking API-Conformity
-If you have implemented a custom environment and would like to perform a sanity check to make sure that it conforms to 
-the API, you can run: 
+custom environmnet를 구현하고 API에 부합하는지를 확인하기 위해서 sanity 체크를 수행할 수 있다. 이렇게 실행 : 
 
 ```python
 >>> from gym.utils.env_checker import check_env
 >>> check_env(env)
 ```
 
-This function will throw an exception if it seems like your environment does not follow the Gym API. It will also produce
-warnings if it looks like you made a mistake or do not follow a best practice (e.g. if `observation_space` looks like 
-an image but does not have the right dtype). Warnings can be turned off by passing `warn=False`. By default, `check_env` will 
-not check the `render` method. To change this behavior, you can pass `skip_render_check=False`.
+이 함수는 여러분의 environment가 Gym API를 따르지 않는거 같이 보이면 exception을 throw한다. 여러분이 실수를 했거나 원칙을 따르지 않는 것으로 보인다면 warning을 생성시킨다.(e.g. `observation_space`가 image로 보이지만 올바른 dtype을 가지지 않는 경우) warning은 `warn=False`을 전달해서 끄기가 가능하다. 기본적으로 `check_env`은 `render` method를 검사하지 않는다. 이런 동작을 변경하고자 한다면 `skip_render_check=False`을 전달할 수 있다.
 
-> After running `check_env` on an environment, you should not reuse the instance that was checked, as it may have already
-been closed!
+> environment에서 `check_env`를 실행한 후에, 검사한 instance를 재사용하지 말아야 한다.  이미 closed되어 있을 수 있다.
 
 ## Spaces
 Spaces are usually used to specify the format of valid actions and observations.

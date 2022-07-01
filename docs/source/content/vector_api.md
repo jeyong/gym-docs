@@ -6,6 +6,7 @@ title: Vector API
 # Vector API
 
 ## Vectorized Environments
+*Vectorized environments*은 동일한 environment의 복사본을 독립적으로 [multiprocessing](https://docs.python.org/3/library/multiprocessing.html)을 이용한 병렬로 실행하는 environments를 말한다. Vectorized environments는 입력으로 일련의 actions을 받고 일련의 observations일 반환한다. policy가 nueral network로 정의된 경우에 특히 유용하다.
 *Vectorized environments* are environments that run multiple independent copies of the same environment in parallel using [multiprocessing](https://docs.python.org/3/library/multiprocessing.html). Vectorized environments take as input a batch of actions, and return a batch of observations. This is particularly useful, for example, when the policy is defined as a neural network that operates over a batch of observations.
 
 Gym provides two types of vectorized environments:
